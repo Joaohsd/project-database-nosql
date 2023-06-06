@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Installing python module in order to create new python environment
 pip install virtualenv
 
