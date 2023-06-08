@@ -20,6 +20,10 @@ def print_menu():
 
     print()
 
+def print_query_answer(query_answer):
+    print()
+    print('Query Answer: ' + str(query_answer))
+
 def input_query_parameters(query_type):
     if query_type == 'create':
         name = str(input('Type Name: '))
@@ -59,19 +63,24 @@ if __name__ == '__main__':
             print('Wrong input. Please enter a number ...')
         if option == 1:
             name, cpf, email, password, age, address = input_query_parameters('create')
-            person_db.create_person(name, cpf, email, password, age, address)
+            print_query_answer(person_db.create_person(name, cpf, email, password, age, address))
         elif option == 2:
-            query_parameters = input_query_parameters('read')
+            cpf = input_query_parameters('read')
+            print_query_answer(person_db.read_person_contact(cpf))
         elif option == 3:
-            query_parameters = input_query_parameters('read')
+            cpf = input_query_parameters('read')
+            print_query_answer(person_db.read_person_age(cpf))
         elif option == 4:
-            query_parameters = input_query_parameters('update')
+            cpf, parameter_to_update = input_query_parameters('update')
+            print_query_answer(person_db.update_person_address(cpf, parameter_to_update))
         elif option == 5:
-            query_parameters = input_query_parameters('update')
+            cpf, parameter_to_update = input_query_parameters('update')
+            print_query_answer(person_db.update_person_password(cpf, parameter_to_update))
         elif option == 6:
-            query_parameters = input_query_parameters('delete')
+            cpf = input_query_parameters('delete')
+            print_query_answer(person_db.delete_person(cpf))
         elif option == 7:
-            print('Thanks for using our service!')
+            print_query_answer('Thanks for using our service!')
             exit()
         else:
             print('Invalid option. Please enter a number between 1 and 7.')
