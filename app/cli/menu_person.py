@@ -33,12 +33,12 @@ class MenuPerson:
         print('--- Menu ---')
         print()
 
-        for key, value in self.options.items():
+        for key, value in self.__options.items():
             print (key, '--', value)
 
         print()
     
-    def create_person_parameters():
+    def create_person_parameters(self):
         name = str(input('Type Name: '))
         cpf = str(input('Type CPF: '))
         email = str(input('Type E-mail: '))
@@ -47,21 +47,21 @@ class MenuPerson:
         address = str(input('Type Address: '))
         return {'name':name, 'cpf':cpf, 'email':email, 'password':password, 'age':age, 'address':address}
     
-    def read_person_parameters():
+    def read_person_parameters(self):
         cpf = str(input('Type CPF: '))
         return {'cpf':cpf}
     
-    def update_person_address_parameters():
+    def update_person_address_parameters(self):
         cpf = str(input('Type CPF: '))
         address = str(input('Type ADDRESS: '))
         return {'cpf': cpf, 'address': address}
     
-    def update_person_password_parameters():
+    def update_person_password_parameters(self):
         cpf = str(input('Type CPF: '))
         password = str(input('Type PASSWORD: '))
         return {'cpf': cpf, 'password': password}
     
-    def delete_person_parameters():
+    def delete_person_parameters(self):
         cpf = str(input('Type CPF: '))
         return {'cpf': cpf}
 
@@ -83,5 +83,5 @@ class MenuPerson:
                 else:
                     print('Enter a valid option.\n')
             except:
-                print('Wrong input. Please enter a number ...\n')
+                print('Wrong input. Please enter with the correct entry ...\n')
             
