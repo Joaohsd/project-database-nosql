@@ -1,6 +1,8 @@
 from database.database import Database
 from database.personDB import PersonDB
 
+from cli.menu_person import MenuPerson
+
 menu_options = {
         1: 'Create Person',
         2: 'Read Person Contact',
@@ -52,6 +54,8 @@ if __name__ == '__main__':
     db = Database(uri, user, password)
 
     person_db = PersonDB(db)
+
+    menu_person = MenuPerson(person_db)
 
     while(True):
         print()

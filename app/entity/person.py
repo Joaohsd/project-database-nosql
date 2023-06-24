@@ -1,5 +1,5 @@
 class Person:
-    def __init__(self, name:str, cpf:str, email:str, password:str, age:int, address:dict):
+    def __init__(self, name:str, cpf:str, email:str, password:str, age:int, address:str):
         self._name = name
         self._cpf = cpf
         self._email = email
@@ -37,11 +37,11 @@ class Person:
     def set_age(self, age):
         self._age = age
 
-    def get_address(self) -> dict:
+    def get_address(self) -> str:
         return self._address
 
     def set_address(self, address):
         self._address = address
 
     def __str__(self) -> str:
-        return f"Person(Name: {self._name}, CPF: {self._cpf}, Email: {self._email}, Age: {self._age}, Address: {self._address['city']}, {self._address['state']}, {self._address['country']})"
+        return f"Person(Name: {self._name}, CPF: {self._cpf}, Email: {self._email}, Age: {self._age}, Address: {self._address})"

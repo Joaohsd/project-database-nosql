@@ -23,7 +23,7 @@ class MenuPerson:
         
         self.__query_methods = {
             1: self.__person_db.create_person,
-            2: self.__person_db.read_person,
+            2: self.__person_db.read_person_by_cpf,
             3: self.__person_db.update_person_address,
             4: self.__person_db.update_person_password,
             5: self.__person_db.delete_person
