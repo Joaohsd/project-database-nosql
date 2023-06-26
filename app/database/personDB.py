@@ -43,10 +43,13 @@ class PersonDB:
         parameter = {"cpf": parameters['cpf']}
         results = self.__db.execute_query(query, parameter)
         if results:
-            result = results[0]
-            return Person(result['name'], result['cpf'], result['email'], result['password'], result['age'], result['address'])
+            persons = []
+            for result in results:
+                person = Person(result['name'], result['cpf'], result['email'], '', result['age'], result['address'])
+                persons.append(person)
+            return persons
         else:
-            return None
+            return []
 
     def read_person_contact(self, parameters):
         query = "MATCH (p:Person{cpf:$cpf}) RETURN p.name AS name, p.email AS email, p.cpf AS cpf LIMIT 1"
@@ -66,17 +69,22 @@ class PersonDB:
         else:
             return [[result["name"], result["age"]] for result in results]
     
-    def update_person_address(self, cpf, new_address):
+    def update_person_address(self, parameters):
         query = "MATCH (p:Person {cpf: $cpf}) SET p.address = $new_address"
-        parameters = {"cpf": cpf['cpf'], "new_address": new_address}
+        parameters = {"cpf": parameters['cpf'], "new_address": parameters['address']}
         return self.__execute_query(query, parameters, 'update')
     
-    def update_person_password(self, cpf, new_password):
+    def update_person_password(self, parameters):
         query = "MATCH (p:Person {cpf: $cpf}) SET p.password = $new_password"
-        parameters = {"cpf": cpf['cpf'], "new_password": new_password}
+        parameters = {"cpf": parameters['cpf'], "new_password": parameters['password']}
         return self.__execute_query(query, parameters, 'update')
 
     def delete_person(self, cpf):
         query = "MATCH (p:Person {cpf: $cpf}) DETACH DELETE p"
         parameters = {"cpf": cpf['cpf']}
         return self.__execute_query(query, parameters, 'delete')
+    
+    def create_confirmation_in_event(self, parameters):
+        query = "MATCH (p:Person{cpf:$cpf}),(e:Event{name:$event_name}) CREATE (p)-[:CONFIRMADO_EM]->(e)"
+        parameters = {"cpf": parameters["cpf"], "event_name": parameters["name"]}
+        self.__db.execute_query(query, parameters)

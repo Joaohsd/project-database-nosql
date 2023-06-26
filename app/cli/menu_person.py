@@ -10,15 +10,17 @@ class MenuPerson:
             3: 'Update Person Address',
             4: 'Update Person Password',
             5: 'Delete Person',
-            6: 'Exit Person Menu'
+            6: 'Confirm presence in event',
+            7: 'Exit Person Menu'
         }
         
         self.__parameter_methods = {
             1: self.create_person_parameters,
-            2: self.read_person_parameters,
+            2: self.read_person_by_cpf_parameters,
             3: self.update_person_address_parameters,
             4: self.update_person_password_parameters,
-            5: self.delete_person_parameters
+            5: self.delete_person_parameters,
+            6: self.create_confirmation_in_event_parameters
         }
         
         self.__query_methods = {
@@ -26,7 +28,8 @@ class MenuPerson:
             2: self.__person_db.read_person_by_cpf,
             3: self.__person_db.update_person_address,
             4: self.__person_db.update_person_password,
-            5: self.__person_db.delete_person
+            5: self.__person_db.delete_person,
+            6: self.__person_db.create_confirmation_in_event
         }
 
     def __print_menu(self):
@@ -47,7 +50,7 @@ class MenuPerson:
         address = str(input('Type Address: '))
         return {'name':name, 'cpf':cpf, 'email':email, 'password':password, 'age':age, 'address':address}
     
-    def read_person_parameters(self):
+    def read_person_by_cpf_parameters(self):
         cpf = str(input('Type CPF: '))
         return {'cpf':cpf}
     
@@ -64,13 +67,18 @@ class MenuPerson:
     def delete_person_parameters(self):
         cpf = str(input('Type CPF: '))
         return {'cpf':cpf}
+    
+    def create_confirmation_in_event_parameters(self):
+        cpf = str(input('Type CPF: '))
+        event_name = str(input('Type Event Name: '))
+        return {'cpf':cpf, 'name':event_name}
 
     def parameter_query(self, option):
         return self.__parameter_methods[option]()
 
     def execute_query(self, option):
         parameters = self.parameter_query(option)
-        self.__query_methods[option](parameters)
+        return self.__query_methods[option](parameters)
 
     def process(self):
         while True:

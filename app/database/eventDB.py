@@ -3,6 +3,7 @@ from database.database import Database
 
 # Entity
 from entity.event import Event
+from entity.person import Person
 
 import json
 
@@ -55,3 +56,29 @@ class EventDB:
         query = 'MATCH (e:Event {name: $name}) DETACH DELETE e'
         parameters = {'name': parameters['name']}
         self.__db.execute_query(query, parameters)
+
+    def read_num_persons_in_event(self, parameters):
+        query = "MATCH (p:Person)-[:CONFIRMADO_EM]->(e:Event{name:$event_name}) RETURN COUNT(p) AS number"
+        parameters = {"event_name": parameters["name"]}
+        results = self.__db.execute_query(query, parameters)
+        if results:
+            personsConfirmed = []
+            for result in results:
+                personsConfirmed.append(f"Number of persons confirmed in event: {result['number']}")
+            return personsConfirmed
+        else:
+            return []
+    
+    def read_persons_in_event(self, parameters):
+        query = "MATCH (p:Person)-[:CONFIRMADO_EM]->(e:Event{name:$event_name}) RETURN p.name AS name, p.email AS email, p.cpf AS cpf, p.address AS address, p.age AS age "
+        parameters = {"event_name": parameters["name"]}
+        results = self.__db.execute_query(query, parameters)
+        if results:
+            personsConfirmed = []
+            for result in results:
+                person = Person(result['name'], result['cpf'], result['email'], '', result['age'], result['address'])
+                personsConfirmed.append(person)
+            return personsConfirmed
+        else:
+            return []
+        
