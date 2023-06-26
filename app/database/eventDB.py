@@ -35,7 +35,6 @@ class EventDB:
         results = self.__db.execute_query(query)
         if results:
             events = []
-            print(results)
             for result in results:
                 event = Event(result['name'], result['date'], json.loads(result['location']))
                 events.append(event)

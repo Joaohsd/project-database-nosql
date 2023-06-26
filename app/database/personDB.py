@@ -50,7 +50,7 @@ class PersonDB:
             return persons
         else:
             return []
-
+    '''
     def read_person_contact(self, parameters):
         query = "MATCH (p:Person{cpf:$cpf}) RETURN p.name AS name, p.email AS email, p.cpf AS cpf LIMIT 1"
         parameter = {"cpf": parameters['cpf']}
@@ -59,7 +59,7 @@ class PersonDB:
             return results
         else:
             return [[result["name"], result["email"], result["cpf"]] for result in results]
-    
+      
     def read_person_age(self, cpf):
         query = "MATCH (p:Person{cpf:$cpf}) RETURN p.name AS name, p.age AS age LIMIT 1"
         parameter = {"cpf": cpf['cpf']}
@@ -68,7 +68,7 @@ class PersonDB:
             return results
         else:
             return [[result["name"], result["age"]] for result in results]
-    
+    '''
     def update_person_address(self, parameters):
         query = "MATCH (p:Person {cpf: $cpf}) SET p.address = $new_address"
         parameters = {"cpf": parameters['cpf'], "new_address": parameters['address']}
