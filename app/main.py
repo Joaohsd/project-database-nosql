@@ -1,16 +1,14 @@
 from database.database import Database
 from database.personDB import PersonDB
+from database.eventDB import EventDB
 
 from cli.menu_person import MenuPerson
+from cli.menu_event import MenuEvent
 
 menu_options = {
-        1: 'Create Person',
-        2: 'Read Person Contact',
-        3: 'Read Person Age',
-        4: 'Update Person Address',
-        5: 'Update Person Password',
-        6: 'Delete Person',
-        7: 'Exit',
+        1: 'Interact with Person Menu',
+        2: 'Interact with Event Menu',
+        3: 'Exit',
 }
     
 def print_menu():
@@ -54,8 +52,10 @@ if __name__ == '__main__':
     db = Database(uri, user, password)
 
     person_db = PersonDB(db)
+    event_db = EventDB(db)
 
     menu_person = MenuPerson(person_db)
+    menu_event = MenuEvent(event_db)
 
     while(True):
         print()
@@ -66,25 +66,11 @@ if __name__ == '__main__':
         except:
             print('Wrong input. Please enter a number ...')
         if option == 1:
-            dictCreate = input_query_parameters('create')
-            print_query_answer(person_db.create_person(dictCreate))
+            menu_person.process()
         elif option == 2:
-            dictCPF = input_query_parameters('read')
-            print_query_answer(person_db.read_person_contact(dictCPF))
+            menu_event.process()
         elif option == 3:
-            dictCPF = input_query_parameters('read')
-            print_query_answer(person_db.read_person_age(dictCPF))
-        elif option == 4:
-            dictCPF, parameter_to_update = input_query_parameters('update')
-            print_query_answer(person_db.update_person_address(dictCPF, parameter_to_update))
-        elif option == 5:
-            dictCPF, parameter_to_update = input_query_parameters('update')
-            print_query_answer(person_db.update_person_password(dictCPF, parameter_to_update))
-        elif option == 6:
-            dictCPF = input_query_parameters('delete')
-            print_query_answer(person_db.delete_person(dictCPF))
-        elif option == 7:
             print('Thanks for using our service!')
             exit()
         else:
-            print('Invalid option. Please enter a number between 1 and 7.')
+            print('Invalid option. Please enter a number between 1 and 3.')

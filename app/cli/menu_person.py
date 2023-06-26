@@ -54,16 +54,16 @@ class MenuPerson:
     def update_person_address_parameters(self):
         cpf = str(input('Type CPF: '))
         address = str(input('Type ADDRESS: '))
-        return {'cpf': cpf, 'address': address}
+        return {'cpf':cpf, 'address': address}
     
     def update_person_password_parameters(self):
         cpf = str(input('Type CPF: '))
         password = str(input('Type PASSWORD: '))
-        return {'cpf': cpf, 'password': password}
+        return {'cpf':cpf, 'password':password}
     
     def delete_person_parameters(self):
         cpf = str(input('Type CPF: '))
-        return {'cpf': cpf}
+        return {'cpf':cpf}
 
     def parameter_query(self, option):
         return self.__parameter_methods[option]()
@@ -78,8 +78,16 @@ class MenuPerson:
             option = -1
             try:
                 option = int(input('Enter your choice: '))
-                if option in self.__options:
-                    self.execute_query(option)
+                if option == max(self.__options.keys()):
+                    break
+                elif option in self.__options:
+                    results = self.execute_query(option)
+                    if option >= 2 and option <= 3:
+                        if results:
+                            for result in results:
+                                print(result)
+                        else:
+                            print('Nothing found')
                 else:
                     print('Enter a valid option.\n')
             except:
