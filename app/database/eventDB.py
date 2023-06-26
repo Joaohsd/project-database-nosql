@@ -55,4 +55,3 @@ class EventDB:
         query = 'MATCH (e:Event {name: $name}) DETACH DELETE e'
         parameters = {'name': parameters['name']}
         self.__db.execute_query(query, parameters)
-

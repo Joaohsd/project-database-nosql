@@ -59,7 +59,7 @@ class PersonDB:
     
     def read_person_age(self, cpf):
         query = "MATCH (p:Person{cpf:$cpf}) RETURN p.name AS name, p.age AS age LIMIT 1"
-        parameter = {"cpf": cpf}
+        parameter = {"cpf": cpf['cpf']}
         results = self.__execute_query(query, parameter, 'read')
         if isinstance(results, str):
             return results
@@ -68,15 +68,15 @@ class PersonDB:
     
     def update_person_address(self, cpf, new_address):
         query = "MATCH (p:Person {cpf: $cpf}) SET p.address = $new_address"
-        parameters = {"cpf": parameters['cpf'], "new_address": parameters['address']}
+        parameters = {"cpf": cpf['cpf'], "new_address": new_address}
         return self.__execute_query(query, parameters, 'update')
     
     def update_person_password(self, cpf, new_password):
         query = "MATCH (p:Person {cpf: $cpf}) SET p.password = $new_password"
-        parameters = {"cpf": cpf, "new_password": new_password}
+        parameters = {"cpf": cpf['cpf'], "new_password": new_password}
         return self.__execute_query(query, parameters, 'update')
 
     def delete_person(self, cpf):
         query = "MATCH (p:Person {cpf: $cpf}) DETACH DELETE p"
-        parameters = {"cpf": cpf}
+        parameters = {"cpf": cpf['cpf']}
         return self.__execute_query(query, parameters, 'delete')

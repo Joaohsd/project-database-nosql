@@ -34,17 +34,17 @@ def input_query_parameters(query_type):
         password = str(input('Type PASSWORD: '))
         age = str(input('Type Age: '))
         address = str(input('Type Address: '))
-        return (name, cpf, email, password, age, address)
+        return {"name": name, "cpf": cpf, "email": email, "password": password, "age": age, "address": address}
     elif query_type == 'read':
         cpf = str(input('Type CPF: '))
-        return cpf
+        return {"cpf": cpf}
     elif query_type == 'update':
         cpf = str(input('Type CPF: '))
         parameter_to_update = str(input('Type Parameter: '))
-        return (cpf, parameter_to_update)
+        return {"cpf": cpf}, parameter_to_update
     elif query_type == 'delete':
         cpf = str(input('Type CPF: '))
-        return cpf
+        return {"cpf": cpf}
 
 if __name__ == '__main__':
     uri = str(input('Type URI: '))
@@ -66,25 +66,25 @@ if __name__ == '__main__':
         except:
             print('Wrong input. Please enter a number ...')
         if option == 1:
-            name, cpf, email, password, age, address = input_query_parameters('create')
-            print_query_answer(person_db.create_person(name, cpf, email, password, age, address))
+            dictCreate = input_query_parameters('create')
+            print_query_answer(person_db.create_person(dictCreate))
         elif option == 2:
-            cpf = input_query_parameters('read')
-            print_query_answer(person_db.read_person_contact(cpf))
+            dictCPF = input_query_parameters('read')
+            print_query_answer(person_db.read_person_contact(dictCPF))
         elif option == 3:
-            cpf = input_query_parameters('read')
-            print_query_answer(person_db.read_person_age(cpf))
+            dictCPF = input_query_parameters('read')
+            print_query_answer(person_db.read_person_age(dictCPF))
         elif option == 4:
-            cpf, parameter_to_update = input_query_parameters('update')
-            print_query_answer(person_db.update_person_address(cpf, parameter_to_update))
+            dictCPF, parameter_to_update = input_query_parameters('update')
+            print_query_answer(person_db.update_person_address(dictCPF, parameter_to_update))
         elif option == 5:
-            cpf, parameter_to_update = input_query_parameters('update')
-            print_query_answer(person_db.update_person_password(cpf, parameter_to_update))
+            dictCPF, parameter_to_update = input_query_parameters('update')
+            print_query_answer(person_db.update_person_password(dictCPF, parameter_to_update))
         elif option == 6:
-            cpf = input_query_parameters('delete')
-            print_query_answer(person_db.delete_person(cpf))
+            dictCPF = input_query_parameters('delete')
+            print_query_answer(person_db.delete_person(dictCPF))
         elif option == 7:
-            print_query_answer('Thanks for using our service!')
+            print('Thanks for using our service!')
             exit()
         else:
             print('Invalid option. Please enter a number between 1 and 7.')
