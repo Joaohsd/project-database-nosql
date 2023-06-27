@@ -15,12 +15,12 @@ class MenuPerson:
         }
         
         self.__parameter_methods = {
-            1: self.create_person_parameters,
-            2: self.read_person_by_cpf_parameters,
-            3: self.update_person_address_parameters,
-            4: self.update_person_password_parameters,
-            5: self.delete_person_parameters,
-            6: self.create_confirmation_in_event_parameters
+            1: self.__create_person_parameters,
+            2: self.__read_person_by_cpf_parameters,
+            3: self.__update_person_address_parameters,
+            4: self.__update_person_password_parameters,
+            5: self.__delete_person_parameters,
+            6: self.__create_confirmation_in_event_parameters
         }
         
         self.__query_methods = {
@@ -41,7 +41,7 @@ class MenuPerson:
 
         print()
     
-    def create_person_parameters(self):
+    def __create_person_parameters(self):
         name = str(input('Type Name: '))
         cpf = str(input('Type CPF: '))
         email = str(input('Type E-mail: '))
@@ -50,34 +50,34 @@ class MenuPerson:
         address = str(input('Type Address: '))
         return {'name':name, 'cpf':cpf, 'email':email, 'password':password, 'age':age, 'address':address}
     
-    def read_person_by_cpf_parameters(self):
+    def __read_person_by_cpf_parameters(self):
         cpf = str(input('Type CPF: '))
         return {'cpf':cpf}
     
-    def update_person_address_parameters(self):
+    def __update_person_address_parameters(self):
         cpf = str(input('Type CPF: '))
         address = str(input('Type ADDRESS: '))
         return {'cpf':cpf, 'address': address}
     
-    def update_person_password_parameters(self):
+    def __update_person_password_parameters(self):
         cpf = str(input('Type CPF: '))
         password = str(input('Type PASSWORD: '))
         return {'cpf':cpf, 'password':password}
     
-    def delete_person_parameters(self):
+    def __delete_person_parameters(self):
         cpf = str(input('Type CPF: '))
         return {'cpf':cpf}
     
-    def create_confirmation_in_event_parameters(self):
+    def __create_confirmation_in_event_parameters(self):
         cpf = str(input('Type CPF: '))
         event_name = str(input('Type Event Name: '))
         return {'cpf':cpf, 'name':event_name}
 
-    def parameter_query(self, option):
+    def __parameter_query(self, option):
         return self.__parameter_methods[option]()
 
-    def execute_query(self, option):
-        parameters = self.parameter_query(option)
+    def __execute_query(self, option):
+        parameters = self.__parameter_query(option)
         return self.__query_methods[option](parameters)
 
     def process(self):
@@ -89,7 +89,7 @@ class MenuPerson:
                 if option == max(self.__options.keys()):
                     break
                 elif option in self.__options:
-                    results = self.execute_query(option)
+                    results = self.__execute_query(option)
                     if option >= 2 and option <= 3:
                         if results:
                             for result in results:

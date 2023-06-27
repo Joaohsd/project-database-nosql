@@ -11,10 +11,11 @@ class MenuEvent:
             3: 'Read Event by theme',
             4: 'Read Num Persons in Event',
             5: 'Read Persons in Event',
-            6: 'Update Event Date',
-            7: 'Update Event Location',
-            8: 'Delete Event',
-            9: 'Exit Event Menu'
+            6: 'Read Average Age in Event',
+            7: 'Update Event Date',
+            8: 'Update Event Location',
+            9: 'Delete Event',
+            10: 'Exit Event Menu'
         }
 
         self.__event_options = {
@@ -33,9 +34,10 @@ class MenuEvent:
             3: self.__read_event_by_theme_parameters,
             4: self.__read_num_persons_in_event_parameters,
             5: self.__read_persons_in_event_parameters,
-            6: self.__update_event_date_parameters,
-            7: self.__update_event_location_parameters,
-            8: self.__delete_event_parameters
+            6: self.__read_average_age_in_event_parameters,
+            7: self.__update_event_date_parameters,
+            8: self.__update_event_location_parameters,
+            9: self.__delete_event_parameters
         }
         
         self.__query_methods = {
@@ -44,9 +46,10 @@ class MenuEvent:
             3: self.__event_db.read_event_by_theme,
             4: self.__event_db.read_num_persons_in_event,
             5: self.__event_db.read_persons_in_event,
-            6: self.__event_db.update_event_date,
-            7: self.__event_db.update_event_location,
-            8: self.__event_db.delete_event_by_name
+            6: self.__event_db.read_average_age_in_event,
+            7: self.__event_db.update_event_date,
+            8: self.__event_db.update_event_location,
+            9: self.__event_db.delete_event_by_name
         }
 
     def __print_menu(self):
@@ -131,6 +134,10 @@ class MenuEvent:
     def __read_persons_in_event_parameters(self):
         event_name = str(input('Type Event Name: '))
         return {'name': event_name}
+    
+    def __read_average_age_in_event_parameters(self):
+        event_name = str(input('Type Event Name: '))
+        return {'name': event_name}
 
     def __execute_query(self, option):
         parameters = self.__parameter_methods[option]()
@@ -147,7 +154,7 @@ class MenuEvent:
                     break
                 elif option in self.__options:
                     results = self.__execute_query(option)
-                    if option >= 2 and option <= 5:
+                    if option >= 2 and option <= 6:
                         if results:
                             for result in results:
                                 print(result)

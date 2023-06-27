@@ -80,4 +80,16 @@ class EventDB:
             return personsConfirmed
         else:
             return []
+    
+    def read_average_age_in_event(self, parameters):
+        query = "MATCH (p:Person)-[:CONFIRMADO_EM]->(e:Event{name:$event_name}) RETURN AVG(p.age) AS avg_age"
+        parameters = {"event_name": parameters["name"]}
+        results = self.__db.execute_query(query, parameters)
+        if results:
+            avgAge = []
+            for result in results:
+                avgAge.append(f"Average Age in event is: {result['avg_age']}")
+            return avgAge
+        else:
+            return []
         
