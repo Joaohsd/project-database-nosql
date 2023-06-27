@@ -3,4 +3,4 @@ start:
 	./setup/start.sh
 
 run:
-	python3 src/main.py
+	python3 app/main.py
